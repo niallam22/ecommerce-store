@@ -33,6 +33,7 @@ const ProductCard: React.FC<ProductCard> = ({
   };
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    //stop the onClick={handleClick} from being triggered in the parent div
     event.stopPropagation();
 
     cart.addItem(data);

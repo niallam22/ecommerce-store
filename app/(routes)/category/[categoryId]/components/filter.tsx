@@ -24,17 +24,19 @@ const Filter: React.FC<FilterProps> = ({
   const selectedValue = searchParams.get(valueKey);
   
   const onClick = (id: string) => {
+    //get current query from url
     const current = qs.parse(searchParams.toString());
 
+    //when filter is clicked add the filter to the query e.g where valueKey is size and id is medium
     const query = {
       ...current,
       [valueKey]: id
     };
-
-    if (current[valueKey] === id) {
+    
+    if (current[valueKey] === id) { //user clicked on active filter therefore remove filter
       query[valueKey] = null;
     }
-
+    //create new url
     const url = qs.stringifyUrl({
       url: window.location.href,
       query,
