@@ -11,6 +11,7 @@ interface CartStore {
   removeItem: (id: string) => void;
   removeAll: () => void;
 }
+
 //persist items in cart to local storage
 const useCart = create(
   persist<CartStore>((set, get) => ({

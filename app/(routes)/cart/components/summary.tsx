@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast";
 
 const Summary = () => {
   const searchParams = useSearchParams();
-  const items = useCart((state) => state.items);
+  const items = useCart((state) => state.items); //selector function passed to zustand lib through useCart and returns result
   const removeAll = useCart((state) => state.removeAll);
 
   useEffect(() => {
