@@ -11,6 +11,8 @@ This is a repository for a Full Stack E-Commerce + Dashboard & CMS: Next.js 13 A
 
 [VIDEO TUTORIAL](https://youtu.be/5miHyP6lExg)
 
+To connect products setup and use public api key from admin store
+
 Key Features:
 
 - We will be using Shadcn UI for the Admin!
