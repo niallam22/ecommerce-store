@@ -9,6 +9,10 @@ export interface Product {
   images: Image[]
 };
 
+export interface Item extends Product {
+  quantity: number;
+}
+
 export interface Image {
   id: string;
   url: string;

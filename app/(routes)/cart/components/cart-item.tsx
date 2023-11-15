@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { toast } from "react-hot-toast";
-import { X } from "lucide-react";
+import { X, Plus, Minus } from "lucide-react";
 
 import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
-import { Product } from "@/types";
+import { Item } from "@/types";
 
 
 interface CartItemProps {
-  data: Product;
+  data: Item;
 }
 
 const CartItem: React.FC<CartItemProps> = ({
@@ -19,6 +19,14 @@ const CartItem: React.FC<CartItemProps> = ({
 
   const onRemove = () => {
     cart.removeItem(data.id);
+  };
+
+  const onReduce = () => {
+    cart.decreaseItemQty(data);
+  };
+
+  const onIncrease = () => {
+    cart.addItem(data);
   };
 
   return ( 
@@ -35,18 +43,35 @@ const CartItem: React.FC<CartItemProps> = ({
         <div className="absolute z-10 right-0 top-0">
           <IconButton onClick={onRemove} icon={<X size={15} />} />
         </div>
+
         <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+          <div>
           <div className="flex justify-between">
             <p className=" text-lg font-semibold text-black">
               {data.name}
             </p>
           </div>
-
-          <div className="mt-1 flex text-sm">
+          <div className="mt-2 flex text-sm">
             <p className="text-gray-500">{data.color.name}</p>
-            <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">{data.size.name}</p>
+            <p className="ml-2 border-l border-gray-200 pl-2 text-gray-500">{data.size.name}</p>
           </div>
-          <Currency value={data.price} />
+          <div className="py-2">
+            <Currency value={data.price} />
+          </div>
+          
+          </div>
+            <div className="w-fit">
+              <div className="flex items-start space-x-2 w-fit">
+                <IconButton onClick={onIncrease} icon={<Plus size={15} />} />
+                <IconButton onClick={onReduce} icon={<Minus size={15} />} />
+              </div>
+              <div className="border border-gray-200 rounded-lg my-2 p-1 text-center">
+                {data.quantity}
+              </div>
+          </div>
+
+
+
         </div>
       </div>
     </li>
