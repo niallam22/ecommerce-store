@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { persist, createJSONStorage } from "zustand/middleware"; 
 import { AlertTriangle } from 'lucide-react';
 
-import { Product, Item } from '@/types';
+import { Product, Item, Stock } from '@/types';
 
 interface CartStore {
   items: Item[];

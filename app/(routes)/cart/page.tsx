@@ -4,10 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Container from '@/components/ui/container';
 import useCart from '@/hooks/use-cart';
-
 import Summary from './components/summary'
 import CartItem from './components/cart-item';
-// import getStock from '@/actions/get-stock'; !!!!!! remove all instances 
 import { Stock } from '@/types';
 import { getStock } from '@/actions/_actions';
 
@@ -48,7 +46,7 @@ const CartPage = () => {
               {cart.items.length === 0 && <p className="text-neutral-500">No items added to cart.</p>}
               <ul>
                 {cart.items.map((item) => (
-                  <CartItem key={item.id} data={item} stock={stock?.map((s)=>s.productId === item.id)}/>
+                  <CartItem key={item.id} data={item} />
                 ))}
               </ul>
             </div>
