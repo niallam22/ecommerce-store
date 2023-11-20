@@ -69,7 +69,7 @@ const useCart = create(
       });
       toast.success('Item removed from cart.');
     }else{
-      toast.error('Cannot decrease item quantity further.');
+      toast.error('Cannot decrease quantity further.');
     }
   },
   removeItem: (id: string) => {

@@ -11,6 +11,7 @@ import getColors from '@/actions/get-colors';
 
 import Filter from './components/filter';
 import MobileFilters from './components/mobile-filters';
+import { getStock } from '@/actions/_actions';
 
 export const revalidate = 0;
 
@@ -33,6 +34,8 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     colorId: searchParams.colorId,
     sizeId: searchParams.sizeId,
   });
+  const productIds = products.map(p => p.id)
+  const stock = await getStock(productIds)
   const sizes = await getSizes();
   const colors = await getColors();
   const category = await getCategory(params.categoryId);
@@ -62,7 +65,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
               {products.length === 0 && <NoResults />}
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {products.map((item) => (
-                  <ProductCard key={item.id} data={item} />
+                  <ProductCard key={item.id} data={item} stock={stock?.find(s=> s.productId === item.id)} />
                 ))}
               </div>
             </div>

@@ -1,15 +1,17 @@
 import ProductCard from "@/components/ui/product-card";
-import { Product } from "@/types";
+import { Product, Stock } from "@/types";
 import NoResults from "@/components/ui/no-results";
 
 interface ProductListProps {
   title: string;
-  items: Product[]
+  items: Product[];
+  stock?: Stock[];
 }
 
 const ProductList: React.FC<ProductListProps> = ({
   title,
-  items
+  items,
+  stock
 }) => {
   return (
     <div className="space-y-4">
@@ -17,7 +19,7 @@ const ProductList: React.FC<ProductListProps> = ({
       {items.length === 0 && <NoResults />}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {items.map((item) => (
-          <ProductCard key={item.id} data={item} />
+          <ProductCard key={item.id} data={item} stock={stock?.find(s=>s.productId === item.id)}/>
         ))}
       </div>
     </div>

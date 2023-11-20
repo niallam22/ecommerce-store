@@ -4,6 +4,7 @@ import Info from '@/components/info';
 import getProduct from '@/actions/get-product';
 import getProducts from '@/actions/get-products';
 import Container from '@/components/ui/container';
+import { getStock } from '@/actions/_actions';
 
 export const revalidate = 0;
 
@@ -17,9 +18,13 @@ const ProductPage: React.FC<ProductPageProps> = async ({
   params
  }) => {
   const product = await getProduct(params.productId);
+  const stock = await getStock([params.productId])
+
   const suggestedProducts = await getProducts({ 
     categoryId: product?.category?.id
   });
+  const suggestedProductIds = suggestedProducts.map((p) => p.id);
+  const stockSuggestedProducts = await getStock(suggestedProductIds)
 
   if (!product) {
     return null;
@@ -32,11 +37,13 @@ const ProductPage: React.FC<ProductPageProps> = async ({
           <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
             <Gallery images={product.images} />
             <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-              <Info data={product} />
+              <Info data={product} stock={stock[0]}/>
             </div>
           </div>
           <hr className="my-10" />
-          <ProductList title="Related Items" items={suggestedProducts} />
+          <ProductList title="Related Items" 
+          items={suggestedProducts} 
+          stock={stockSuggestedProducts}/>
         </div>
       </Container>
     </div>  

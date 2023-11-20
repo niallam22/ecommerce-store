@@ -23,8 +23,6 @@ const CartPage = () => {
         const itemIds = cart.items.map((item) => item.id);
         const stockData = await getStock(itemIds);
         setStock(stockData);
-        console.log('Cart page stockData: ', stockData);
-        
       } catch (error) {
         console.error('Error fetching stock:', error);
       }
