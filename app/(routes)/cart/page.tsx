@@ -14,6 +14,7 @@ export const revalidate = 0;
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [stock, setStock] = useState<Stock[]>();
+  const [isError, setIsError] = useState(false);
   const cart = useCart();
 
   useEffect(() => {
@@ -29,6 +30,15 @@ const CartPage = () => {
     };
     fetchStock();
   }, [cart.items.length]);
+
+  useEffect(()=>{
+    const hasError = cart.items.some((item) => {
+      const stockInfo = stock?.find((s) => s.productId === item.id);
+      return !stockInfo || item.quantity > stockInfo.stock;
+    });
+
+    setIsError(hasError);
+  },[stock])
 
   if (!isMounted) {
     return null;
@@ -48,7 +58,7 @@ const CartPage = () => {
                 ))}
               </ul>
             </div>
-            <Summary />
+            <Summary isError={isError}/>
           </div>
         </div>
       </Container>

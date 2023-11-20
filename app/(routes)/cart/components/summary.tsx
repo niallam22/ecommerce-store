@@ -9,7 +9,11 @@ import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
 
-const Summary = () => {
+interface SummaryProps{
+  isError: boolean
+}
+
+const Summary: React.FC<SummaryProps> = ({isError}) => {
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items); //selector function passed to zustand lib through useCart and returns result
   const removeAll = useCart((state) => state.removeAll);
@@ -50,7 +54,7 @@ const Summary = () => {
          <Currency value={totalPrice} />
         </div>
       </div>
-      <Button onClick={onCheckout} disabled={items.length === 0} className="w-full mt-6">
+      <Button onClick={onCheckout} disabled={items.length === 0|| isError} className="w-full mt-6">
         Checkout
       </Button>
     </div>

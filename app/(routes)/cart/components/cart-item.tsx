@@ -85,9 +85,6 @@ const CartItem: React.FC<CartItemProps> = ({
               <div className="text-red-500 text-sm">{errorMessage}</div>
               )}
           </div>
-
-
-
         </div>
       </div>
     </li>
