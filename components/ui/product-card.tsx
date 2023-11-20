@@ -9,14 +9,15 @@ import Currency  from "@/components/ui/currency";
 import IconButton  from "@/components/ui/icon-button";
 import usePreviewModal from "@/hooks/use-preview-modal";
 import useCart from "@/hooks/use-cart";
-import { Product } from "@/types";
+import { Product, Stock } from "@/types";
 
 interface ProductCard {
   data: Product
+  stock?: Stock
 }
 
 const ProductCard: React.FC<ProductCard> = ({
-  data
+  data, stock
 }) => {
   const previewModal = usePreviewModal();
   const cart = useCart();
@@ -34,7 +35,7 @@ const ProductCard: React.FC<ProductCard> = ({
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation(); //stop the onClick={handleClick} from being triggered in the parent div
-    cart.addItem(data);
+    cart.addItem(data, stock);
   };
   
   return ( 

@@ -7,7 +7,7 @@ import { Product, Item, Stock } from '@/types';
 
 interface CartStore {
   items: Item[];
-  addItem: (data: Product) => void;
+  addItem: (data: Product, stock?: Stock) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
   decreaseItemQty: (data: Product) => void;
@@ -23,13 +23,19 @@ const useCart = create(
     const totalQuantity = itemList.reduce((accum, item)=>accum + item.quantity,0)
     return totalQuantity
   },
-  addItem: (data: Product) => {
+  addItem: (data: Product, stock ) => {
     const itemList = get().items;
     const currentItem = itemList.find(item => item.id === data.id)
-    
+    if(stock && data.id !== stock.productId){
+      return toast('Cannot add item to cart.')
+    }
+    const currentStock = stock? stock.stock : 100
     if (currentItem) {
-      if (currentItem.quantity >= 100) {
-        return toast('Cannot add more items to cart.');
+      if (currentItem.quantity >= currentStock) {
+        if(currentStock === 0){
+          return toast.error('This product is out of stock.')
+        }
+        return toast.error('Cannot add more items to cart.');
       } else{
         // Update the quantity of the existing item
         set({

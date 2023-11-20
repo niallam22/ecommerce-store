@@ -10,10 +10,11 @@ import { Item, Stock } from "@/types";
 
 interface CartItemProps {
   data: Item;
+  stock?: Stock;
 }
 
 const CartItem: React.FC<CartItemProps> = ({
-  data
+  data, stock
 }) => {
   const cart = useCart();
 
@@ -26,7 +27,7 @@ const CartItem: React.FC<CartItemProps> = ({
   };
 
   const onIncrease = () => {
-    cart.addItem(data);
+    cart.addItem(data, stock);
   };
 
   return ( 
