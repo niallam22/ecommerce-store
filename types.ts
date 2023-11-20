@@ -13,6 +13,11 @@ export interface Item extends Product {
   quantity: number;
 }
 
+export interface Stock {
+  productId: string;
+  stock: number;
+}
+
 export interface Image {
   id: string;
   url: string;
