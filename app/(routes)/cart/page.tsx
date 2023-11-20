@@ -7,21 +7,37 @@ import useCart from '@/hooks/use-cart';
 
 import Summary from './components/summary'
 import CartItem from './components/cart-item';
+// import getStock from '@/actions/get-stock'; !!!!!! remove all instances 
+import { Stock } from '@/types';
+import { getStock } from '@/actions/_actions';
 
 export const revalidate = 0;
 
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const [stock, setStock] = useState<Stock[]>();
   const cart = useCart();
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    const fetchStock = async () => {
+      try {
+        const itemIds = cart.items.map((item) => item.id);
+        const stockData = await getStock(itemIds);
+        setStock(stockData);
+        console.log('Cart page stockData: ', stockData);
+        
+      } catch (error) {
+        console.error('Error fetching stock:', error);
+      }
+    };
+    fetchStock();
+  }, [cart.items.length]);
 
   if (!isMounted) {
     return null;
   }
-
+  
   return (
     <div className="bg-white">
       <Container>
@@ -32,7 +48,7 @@ const CartPage = () => {
               {cart.items.length === 0 && <p className="text-neutral-500">No items added to cart.</p>}
               <ul>
                 {cart.items.map((item) => (
-                  <CartItem key={item.id} data={item} />
+                  <CartItem key={item.id} data={item} stock={stock?.map((s)=>s.productId === item.id)}/>
                 ))}
               </ul>
             </div>
