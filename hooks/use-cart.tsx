@@ -11,12 +11,18 @@ interface CartStore {
   removeItem: (id: string) => void;
   removeAll: () => void;
   decreaseItemQty: (data: Product) => void;
+  totalCartQty: ()=> number;
 }
 
 //persist items in cart to local storage
 const useCart = create(
   persist<CartStore>((set, get) => ({
   items: [],
+  totalCartQty: ()=>{
+    const itemList = get().items;
+    const totalQuantity = itemList.reduce((accum, item)=>accum + item.quantity,0)
+    return totalQuantity
+  },
   addItem: (data: Product) => {
     const itemList = get().items;
     const currentItem = itemList.find(item => item.id === data.id)
@@ -77,4 +83,4 @@ const useCart = create(
   storage: createJSONStorage(() => localStorage)
 }));
 
-export default useCart;
+export default useCart
