@@ -6,6 +6,7 @@ import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { Item, Stock } from "@/types";
+import { cn } from "@/lib/utils";
 
 
 interface CartItemProps {
@@ -29,6 +30,14 @@ const CartItem: React.FC<CartItemProps> = ({
   const onIncrease = () => {
     cart.addItem(data, stock);
   };
+
+  let errorMessage
+  if(stock){
+    errorMessage =
+    stock.stock === 0 ? 'Out of stock' :
+    data.quantity > stock.stock? `Max items: ${stock.stock}`
+    : undefined;
+  }
 
   return ( 
     <li className="flex py-6 border-b">
@@ -62,13 +71,19 @@ const CartItem: React.FC<CartItemProps> = ({
           
           </div>
             <div className="w-fit">
-              <div className="flex items-start space-x-2 w-fit">
+              <div className="flex items-start space-x-2 w-fit mx-auto">
                 <IconButton onClick={onIncrease} icon={<Plus size={15} />} />
                 <IconButton onClick={onReduce} icon={<Minus size={15} />} />
               </div>
-              <div className="border border-gray-200 rounded-lg my-2 p-1 text-center">
+              <div 
+              // className="border border-gray-200 rounded-lg my-2 p-1 text-center"
+              className={cn(errorMessage?'border-red-500 text-red-500':'border-gray-200','border', 'rounded-lg', 'my-2', 'p-1', 'text-center')}
+              >
                 {data.quantity}
               </div>
+              {errorMessage && (
+              <div className="text-red-500 text-sm">{errorMessage}</div>
+              )}
           </div>
 
 
