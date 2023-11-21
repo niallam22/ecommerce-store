@@ -20,11 +20,8 @@ export async function getStock(productIds: string[]): Promise<Stock[]> {
 }
 
 export async function postCheckout(items: Item[]) {
-  try {
-    
+  try {    
     const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-      // shippingTarrif: e.g standard/express etc, and then fetch the the price from the schema so that all prices come from db rather than client
-      // vatRate: uk, //pass vat from client based on location and apply rate from schema so always from db
       items: items.map((item) => ({
         productId: item.id,
         quantity: item.quantity,
