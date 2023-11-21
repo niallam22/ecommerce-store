@@ -8,6 +8,7 @@ import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
+import { postCheckout } from "@/actions/_actions";
 
 interface SummaryProps {
   isError: boolean;
@@ -38,11 +39,22 @@ const Summary: React.FC<SummaryProps> = ({ isError }) => {
   const orderTotal = subtotal + vat;
 
   const onCheckout = async () => {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-      productIds: items.map((item) => item.id),
-    });
-
-    window.location = response.data.url;
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
+        // shippingTarrif: e.g standard/express 
+        // vatRate: uk, 
+        items: items.map((item) => ({
+          productId: item.id,
+          quantity: item.quantity,
+        })),
+      });
+      // const response = await postCheckout(items) //server action
+      
+      //set search params that trigger payment success or error message
+      window.location = response.data.url; 
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    }
   };
 
   return (
