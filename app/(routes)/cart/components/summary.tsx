@@ -40,17 +40,16 @@ const Summary: React.FC<SummaryProps> = ({ isError }) => {
 
   const onCheckout = async () => {
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-        // shippingTarrif: e.g standard/express 
-        // vatRate: uk, 
-        items: items.map((item) => ({
-          productId: item.id,
-          quantity: item.quantity,
-        })),
-      });
-      // const response = await postCheckout(items) //server action
-      
-      //set search params that trigger payment success or error message
+      // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
+      //   // shippingTarrif: e.g standard/express 
+      //   // vatRate: uk, 
+      //   items: items.map((item) => ({
+      //     productId: item.id,
+      //     quantity: item.quantity,
+      //   })),
+      // });
+      const response = await postCheckout(items)
+
       window.location = response.data.url; 
     } catch (error) {
       console.error('Error during checkout:', error);
