@@ -48,8 +48,10 @@ const Summary: React.FC<SummaryProps> = ({ isError }) => {
           quantity: item.quantity,
         })),
       });
-      // const response = await postCheckout(items)
-      window.location = response.data.url;
+      // const response = await postCheckout(items) //server action
+      
+      //set search params that trigger payment success or error message
+      window.location = response.data.url; 
     } catch (error) {
       console.error('Error during checkout:', error);
     }
