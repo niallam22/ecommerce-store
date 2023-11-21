@@ -8,6 +8,7 @@ import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
+import { postCheckout } from "@/actions/_actions";
 
 interface SummaryProps {
   isError: boolean;
@@ -37,12 +38,30 @@ const Summary: React.FC<SummaryProps> = ({ isError }) => {
   const vat = subtotal * 0.2;
   const orderTotal = subtotal + vat;
 
-  const onCheckout = async () => {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-      productIds: items.map((item) => item.id),
-    });
+  // const onCheckout = async () => {
+  //   const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
+  //     productIds: items.map((item) => item.id),
+  //   });
 
-    window.location = response.data.url;
+  //   window.location = response.data.url;
+  // };
+
+  const onCheckout = async () => {
+    try {
+      //make fetch a server action
+      // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
+      //   // shippingTarrif: e.g standard/express etc, and then fetch the the price from the schema so that all prices come from db rather than client
+      //   // vatRate: uk, //pass vat from client based on location and apply rate from schema so always from db
+      //   items: items.map((item) => ({
+      //     productId: item.id,
+      //     quantity: item.quantity,
+      //   })),
+      // });
+      const response = await postCheckout(items)
+      window.location = response.data.url;
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    }
   };
 
   return (
