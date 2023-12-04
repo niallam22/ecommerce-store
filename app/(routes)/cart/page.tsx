@@ -22,8 +22,13 @@ const CartPage = () => {
     const fetchStock = async () => {
       try {
         const itemIds = cart.items.map((item) => item.id);
-        const stockData = await getStock(itemIds);
-        setStock(stockData);
+        
+        if (itemIds && itemIds.length > 0) {
+          const stockData = await getStock(itemIds);
+          setStock(stockData);
+        } else {
+          console.warn('No productIds to fetch stock for.');
+        }
       } catch (error) {
         console.error('Error fetching stock:', error);
       }
