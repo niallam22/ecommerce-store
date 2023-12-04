@@ -3,7 +3,7 @@
 import { Item, Stock } from "@/types";
 import axios from "axios";
 
-export async function getStock(productIds: string[]): Promise<Stock[]| undefined> {
+export async function getStock(productIds: string[]): Promise<Stock[]> {
   try {
     if (!productIds || productIds.length === 0) {
       throw new Error('ProductIds are required for getStock action.');
