@@ -3,8 +3,12 @@
 import { Item, Stock } from "@/types";
 import axios from "axios";
 
-export async function getStock(productIds: string[]): Promise<Stock[]> {
+export async function getStock(productIds: string[]): Promise<Stock[]| undefined> {
   try {
+    if (productIds && productIds.length === 0) {
+      console.warn('No productIds provided to getStock function.');
+      return undefined; // Return undefined or handle it based on your requirements
+    }
     const URL = `${process.env.NEXT_PUBLIC_API_URL}/batches/stock?productIds=`;
     const res = await fetch(`${URL}${productIds.join(',')}`);
 
