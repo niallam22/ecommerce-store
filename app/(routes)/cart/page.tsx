@@ -8,6 +8,8 @@ import Summary from './components/summary'
 import CartItem from './components/cart-item';
 import { Stock } from '@/types';
 import { getStock } from '@/actions/_actions';
+import ShippingSelection from './components/shipping-selection';
+import { shippingOptions } from './components/shipping-options';
 
 export const revalidate = 0;
 
@@ -15,7 +17,17 @@ const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [stock, setStock] = useState<Stock[]>();
   const [isError, setIsError] = useState(false);
+  const [shippingOption, setShippingOption] = useState('A'); 
+  const [shippingInfo, setShippingInfo] = useState(shippingOptions[0]);
   const cart = useCart();
+
+  const handleShippingOptionChange = (selectedShippingOption: string) => {
+    setShippingOption(selectedShippingOption);
+  };
+  useEffect(() => {
+    // Update shippingInfo when shippingOption changes
+    setShippingInfo(shippingOptions.find((item) => item.option === shippingOption) || shippingOptions[0]);
+  }, [shippingOption]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -62,8 +74,12 @@ const CartPage = () => {
                   <CartItem key={item.id} data={item} stock={stock?.find((s) => s.productId === item.id)} />
                 ))}
               </ul>
+              <div className='py-4'>
+                <ShippingSelection onOptionChange={handleShippingOptionChange}/>
+              </div>
+
             </div>
-            <Summary isError={isError}/>
+            <Summary isError={isError} shippingInfo={shippingInfo}/>
           </div>
         </div>
       </Container>

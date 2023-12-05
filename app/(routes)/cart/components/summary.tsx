@@ -12,9 +12,16 @@ import { postCheckout } from "@/actions/_actions";
 
 interface SummaryProps {
   isError: boolean;
+  shippingInfo: {
+    option: string;
+    description: string;
+    shippingRateId: string;
+    shippingRate: string;
+    duration: string;
+  };
 }
 
-const Summary: React.FC<SummaryProps> = ({ isError }) => {
+const Summary: React.FC<SummaryProps> = ({ isError, shippingInfo }) => {
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
   const removeAll = useCart((state) => state.removeAll);
@@ -30,13 +37,14 @@ const Summary: React.FC<SummaryProps> = ({ isError }) => {
     }
   }, [searchParams, removeAll]);
 
-  const shippingCost = 3.25;
+  console.log('summary shippingInfo', shippingInfo)
+
+  const shippingCost = Number(shippingInfo?.shippingRate) || 0 ;
   const itemsTotal = items.reduce((total, item) => {
     return total + Number(item.price) * item.quantity;
   }, 0);
-  const subtotal = itemsTotal + shippingCost
-  const vat = subtotal * 0.2;
-  const orderTotal = subtotal + vat;
+
+  const orderTotal = itemsTotal + shippingCost
 
   const onCheckout = async () => {
     try {
@@ -68,10 +76,6 @@ const Summary: React.FC<SummaryProps> = ({ isError }) => {
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
           <div className="text-base font-medium text-gray-600">Shipping</div>
           <Currency value={shippingCost} />
-        </div>
-        <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-          <div className="text-base font-medium text-gray-600">VAT (20%)</div>
-          <Currency value={vat} />
         </div>
         <div className="flex items-center justify-between border-t border-black pt-4">
           <div className="text-base text-gray-600 font-bold">Order total</div>
