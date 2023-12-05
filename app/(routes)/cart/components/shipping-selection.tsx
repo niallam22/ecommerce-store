@@ -1,25 +1,34 @@
+import Currency from "@/components/ui/currency";
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { shippingOptions } from "./shipping-options";
 
 interface ShippingSelectionProps {
-  onOptionChange: (shippingOption: string) => void;
+  shippingOption: string;
 }
 
-const ShippingSelection: React.FC<ShippingSelectionProps> = ({ onOptionChange }) => {
-
+const ShippingSelection: React.FC<ShippingSelectionProps> = ({ shippingOption }) => {
+  console.log('SHIPPING OPTIN', shippingOption)
+  const shippingOptionInfo = shippingOptions.find((item)=> item.option === shippingOption)
   return (
     <div>
-      <h1 className="text-xl font-bold text-black py-2">Shipping</h1>
-      <RadioGroup defaultValue="A" onValueChange={onOptionChange}>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="A" id="r1"/>
-          <Label htmlFor="r1">Free Shipping - $0.00 (3-5 days)</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="B" id="r2" />
-          <Label htmlFor="r2">Express Shipping - £9.99 (1-2 days)</Label>
-        </div>
-      </RadioGroup>
+      <h1 className="text-xl font-bold text-black pt-2">Shipping</h1>
+      <span className="text-sm">(Free shipping on orders over £20)</span>
+      <div className="py-2">
+
+        <RadioGroup >
+          {shippingOptionInfo &&
+            <div 
+            className="flex items-center space-x-2">
+            <RadioGroupItem 
+            checked={true} 
+            value={shippingOptionInfo.option} 
+            id="r1"/>
+            <Label htmlFor="r1">{`${shippingOptionInfo.description} - ${shippingOptionInfo.duration}`}</Label><Currency value={shippingOptionInfo.shippingRate}/>
+            </div>
+          }
+        </RadioGroup>
+      </div>
     </div>
   );
 };

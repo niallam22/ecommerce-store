@@ -16,18 +16,23 @@ export const revalidate = 0;
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [stock, setStock] = useState<Stock[]>();
-  const [isError, setIsError] = useState(false);
-  const [shippingOption, setShippingOption] = useState('A'); 
+  const [isError, setIsError] = useState(false); 
   const [shippingInfo, setShippingInfo] = useState(shippingOptions[0]);
   const cart = useCart();
+  const itemsTotal = cart.items.reduce((total, item) => {
+    return total + Number(item.price) * item.quantity;
+  }, 0);
 
-  const handleShippingOptionChange = (selectedShippingOption: string) => {
-    setShippingOption(selectedShippingOption);
-  };
-  useEffect(() => {
-    // Update shippingInfo when shippingOption changes
-    setShippingInfo(shippingOptions.find((item) => item.option === shippingOption) || shippingOptions[0]);
-  }, [shippingOption]);
+  useEffect(()=>{
+    if(itemsTotal < 20){
+      console.log('set cost shipping')
+      setShippingInfo(shippingOptions[0])
+    }else{
+      console.log('set free shipping')
+      setShippingInfo(shippingOptions[1])
+    }
+    
+  },[itemsTotal])
 
   useEffect(() => {
     setIsMounted(true);
@@ -74,10 +79,6 @@ const CartPage = () => {
                   <CartItem key={item.id} data={item} stock={stock?.find((s) => s.productId === item.id)} />
                 ))}
               </ul>
-              <div className='py-4'>
-                <ShippingSelection onOptionChange={handleShippingOptionChange}/>
-              </div>
-
             </div>
             <Summary isError={isError} shippingInfo={shippingInfo}/>
           </div>

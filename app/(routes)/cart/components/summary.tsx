@@ -37,8 +37,6 @@ const Summary: React.FC<SummaryProps> = ({ isError, shippingInfo }) => {
     }
   }, [searchParams, removeAll]);
 
-  console.log('summary shippingInfo', shippingInfo)
-
   const shippingCost = Number(shippingInfo?.shippingRate) || 0 ;
   const itemsTotal = items.reduce((total, item) => {
     return total + Number(item.price) * item.quantity;
@@ -49,8 +47,6 @@ const Summary: React.FC<SummaryProps> = ({ isError, shippingInfo }) => {
   const onCheckout = async () => {
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-        // shippingTarrif: e.g standard/express 
-        // vatRate: uk, 
         items: items.map((item) => ({
           productId: item.id,
           quantity: item.quantity,
@@ -74,7 +70,11 @@ const Summary: React.FC<SummaryProps> = ({ isError, shippingInfo }) => {
           <Currency value={itemsTotal} />
         </div>
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-          <div className="text-base font-medium text-gray-600">Shipping</div>
+          <div>
+          <div className="text-base font-medium text-gray-600">Shipping (10 - 15 business days)</div>
+          <span className="text-sm">Free shipping on orders over £20</span>
+          </div>
+
           <Currency value={shippingCost} />
         </div>
         <div className="flex items-center justify-between border-t border-black pt-4">
