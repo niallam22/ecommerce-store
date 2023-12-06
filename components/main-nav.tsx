@@ -4,40 +4,31 @@ import Link from "next/link"
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils"
-import { Category } from "@/types";
+
+interface Route {
+  href: string;
+  label: string;
+}
 
 interface MainNavProps {
-  data: Category[];
+  routes: Route[];
 }
 
 const MainNav: React.FC<MainNavProps> = ({
-  data
+  routes
 }) => {
   const pathname = usePathname();
 
-  const routes = data.map((route) => ({
-    href: `/category/${route.id}`,
-    label: route.name,
-    active: pathname === `/category/${route.id}`,
+  const checkActiveRoutes = routes.map((route) => ({
+    ...route,
+    active: pathname === `/category/${route.href}`,
   }));
-
-  routes.push({
-    href: `/about`,
-    label: 'About',
-    active: pathname === `/about`,
-  })
-
-  routes.push({
-    href: `/contact`,
-    label: 'Contact',
-    active: pathname === `/contact`,
-  })
 
   return (
     <nav
-      className="mx-6 flex items-center space-x-4 lg:space-x-6"
+      className="mx-6 hidden md:flex items-center space-x-4 lg:space-x-6"
     >
-      {routes.map((route) => (
+      {checkActiveRoutes.map((route) => (
         <Link
           key={route.href}
           href={route.href}
