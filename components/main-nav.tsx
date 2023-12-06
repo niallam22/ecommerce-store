@@ -27,6 +27,12 @@ const MainNav: React.FC<MainNavProps> = ({
     active: pathname === `/about`,
   })
 
+  routes.push({
+    href: `/contact`,
+    label: 'Contact',
+    active: pathname === `/contact`,
+  })
+
   return (
     <nav
       className="mx-6 flex items-center space-x-4 lg:space-x-6"
