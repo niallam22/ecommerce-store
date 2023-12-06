@@ -7,7 +7,7 @@ import Container from "@/components/ui/container";
 
 export const revalidate = 0;
 
-const HomePage = async () => {
+const AboutPage = async () => {
   const billboard = await getBillboard("48e40b17-d479-4b0d-802e-bc98548efc91"); //copy billboard id from admin site
 
   return (
@@ -46,4 +46,4 @@ const HomePage = async () => {
   )
 };
 
-export default HomePage;
+export default AboutPage;
