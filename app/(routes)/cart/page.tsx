@@ -8,14 +8,31 @@ import Summary from './components/summary'
 import CartItem from './components/cart-item';
 import { Stock } from '@/types';
 import { getStock } from '@/actions/_actions';
+import ShippingSelection from './components/shipping-selection';
+import { shippingOptions } from './components/shipping-options';
 
 export const revalidate = 0;
 
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [stock, setStock] = useState<Stock[]>();
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(false); 
+  const [shippingInfo, setShippingInfo] = useState(shippingOptions[0]);
   const cart = useCart();
+  const itemsTotal = cart.items.reduce((total, item) => {
+    return total + Number(item.price) * item.quantity;
+  }, 0);
+
+  useEffect(()=>{
+    if(itemsTotal < 20){
+      console.log('set cost shipping')
+      setShippingInfo(shippingOptions[0])
+    }else{
+      console.log('set free shipping')
+      setShippingInfo(shippingOptions[1])
+    }
+    
+  },[itemsTotal])
 
   useEffect(() => {
     setIsMounted(true);
@@ -63,7 +80,7 @@ const CartPage = () => {
                 ))}
               </ul>
             </div>
-            <Summary isError={isError}/>
+            <Summary isError={isError} shippingInfo={shippingInfo}/>
           </div>
         </div>
       </Container>
