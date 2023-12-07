@@ -5,6 +5,7 @@ import Container from "@/components/ui/container";
 import NavbarActions from "@/components/navbar-actions";
 import getCategories from "@/actions/get-categories";
 import HeaderMobile from "./header-mobile";
+import { ThemeToggle } from "./theme-toggle";
 
 const Navbar = async () => {
   const categories = await getCategories();
@@ -32,7 +33,13 @@ const Navbar = async () => {
             <p className="font-bold text-xl">STORE</p>
           </Link>
           <MainNav routes={routes} />
+          
           <HeaderMobile routes={routes}/>
+
+          <div className="ml-auto pr-4">
+            <ThemeToggle />
+          </div>
+          
           <NavbarActions />
         </div>
       </Container>

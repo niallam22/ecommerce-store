@@ -17,7 +17,7 @@ const AboutPage = async () => {
           data={billboard}
         />
         <div className="flex flex-col gap-y-6 px-4 sm:px-6 lg:px-8 max-w-4xl m-auto">
-          <h3 className="text-4xl font-bold text-black">About us</h3>
+          <h3 className="text-4xl font-bold">About us</h3>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat vel doloribus natus laboriosam? Deserunt possimus explicabo ea soluta vel eos iure iusto voluptatibus, consectetur quo cupiditate perferendis et architecto asperiores.
           </p>
@@ -26,16 +26,16 @@ const AboutPage = async () => {
             <img className="" src="http://placekitten.com/g/500/500" alt="founder" />
             <div className="p-4 h-fit my-auto">
             <h4 className="text-neutral-500 text-sm">&ldquo;The Labrador&rdquo;</h4>
-              <h3 className="text-3xl font-bold text-black">Nathan Appleby</h3>
-              <p className="text-neutral-500">
+              <h3 className="text-3xl font-bold">Nathan Appleby</h3>
+              <p className="">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis iste sunt soluta illum, reprehenderit modi facilis minima vero incidunt ad perspiciatis voluptatum amet sed quibusdam dolorem ducimus veritatis? Rerum, eos.
               </p>
             </div>
             <img className="md:order-last" src="http://placekitten.com/g/500/500" alt="founder" />
             <div className="p-4 h-fit my-auto">
               <h4 className="text-neutral-500 text-sm">&ldquo;The Collie&ldquo;</h4>
-              <h3 className="text-3xl font-bold text-black">Niall Moore</h3>
-              <p className="text-neutral-500">
+              <h3 className="text-3xl font-bold">Niall Moore</h3>
+              <p className="">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis iste sunt soluta illum, reprehenderit modi facilis minima vero incidunt ad perspiciatis voluptatum amet sed quibusdam dolorem ducimus veritatis? Rerum, eos.
               </p>
             </div>

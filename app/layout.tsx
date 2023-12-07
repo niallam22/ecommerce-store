@@ -6,6 +6,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 
 import './globals.css'
+import { ThemeProvider } from '@/providers/theme-provider'
 
 const font = Urbanist({ subsets: ['latin'] })
 
@@ -21,12 +22,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className={`${font.className} `}>
+        <div className='min-h-screen flex flex-col'>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
         <ToastProvider />
         <ModalProvider />
         <Navbar />
-        {children}
+        <div>
+          {children}
+        </div>
+        <div className='mt-auto'>
         <Footer />
+        </div>
+        
+        </ThemeProvider>
+        </div>
       </body>
     </html>
   )

@@ -3,12 +3,14 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTheme } from "next-themes"
 
 import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
 import { postCheckout } from "@/actions/_actions";
+import { cn } from "@/lib/utils";
 
 interface SummaryProps {
   isError: boolean;
@@ -25,6 +27,7 @@ const Summary: React.FC<SummaryProps> = ({ isError, shippingInfo }) => {
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
   const removeAll = useCart((state) => state.removeAll);
+  const { theme } = useTheme()
 
   useEffect(() => {
     if (searchParams.get('success')) {
@@ -60,25 +63,27 @@ const Summary: React.FC<SummaryProps> = ({ isError, shippingInfo }) => {
       console.error('Error during checkout:', error);
     }
   };
-
   return (
-    <div className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
-      <h2 className="text-lg font-bold text-gray-900">Order summary</h2>
+    <div className={cn("mt-16 rounded-lg px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8",
+    theme === 'light'? 'bg-gray-50' : "bg-slate-900"
+    )}
+    >
+      <h2 className="text-lg font-bold">Order summary</h2>
       <div className="mt-6 space-y-4">
-        <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-          <div className="text-base font-medium text-gray-900">Item total</div>
+        <div className="flex items-center justify-between border-t border-black pt-4">
+          <div className="text-base font-medium">Item total</div>
           <Currency value={itemsTotal} />
         </div>
-        <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+        <div className="flex items-center justify-between border-t border-black pt-4">
           <div>
-          <div className="text-base font-medium text-gray-600">Shipping (10 - 15 business days)</div>
+          <div className="text-base font-medium">Shipping (10 - 15 business days)</div>
           <span className="text-sm">Free shipping on orders over £20</span>
           </div>
 
           <Currency value={shippingCost} />
         </div>
         <div className="flex items-center justify-between border-t border-black pt-4">
-          <div className="text-base text-gray-600 font-bold">Order total</div>
+          <div className="text-base font-bold">Order total</div>
           <Currency value={orderTotal} />
         </div>
       </div>
