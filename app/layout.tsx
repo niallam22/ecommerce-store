@@ -22,14 +22,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${font.className}`}>
+      <body className={`${font.className} `}>
+        <div className='min-h-screen flex flex-col'>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
         <ToastProvider />
         <ModalProvider />
         <Navbar />
-        {children}
+        <div>
+          {children}
+        </div>
+        <div className='mt-auto'>
         <Footer />
+        </div>
+        
         </ThemeProvider>
+        </div>
       </body>
     </html>
   )
