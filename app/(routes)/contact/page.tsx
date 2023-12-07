@@ -1,7 +1,4 @@
 import getBillboard from "@/actions/get-billboard";
-import getProducts from "@/actions/get-products";
-import { getStock } from "@/actions/_actions";
-import ProductList from "@/components/product-list";
 import Billboard from "@/components/ui/billboard";
 import Container from "@/components/ui/container";
 import { EmailForm } from "./components/email-form";
