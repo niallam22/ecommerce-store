@@ -18,7 +18,7 @@ const ReturnsPage = async () => {
           data={billboard}
         />
         <div className="flex flex-col gap-y-6 px-4 sm:px-6 lg:px-8 max-w-4xl m-auto">
-          <h3 className="text-4xl font-bold text-black">Returns</h3>
+          <h3 className="text-4xl font-bold">Returns</h3>
           <p>
             We ensure all items that are posted to our customers are of the highest standard but if there is ever a need to return an item we do accept returns for a full refund. Items must be returned to us within 30 days of receipt, in an unused, condition with original tags attached for a refund of the purchase price minus any postage and packaging costs.
           </p>

@@ -4,8 +4,8 @@ import React, { ReactNode, useEffect, useRef } from 'react';
 import { motion, useCycle } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-import { cn } from "@/lib/utils"
+import { useTheme } from "next-themes"
+import { cn } from '@/lib/utils';
 
 interface Route {
   href: string;
@@ -40,6 +40,8 @@ const HeaderMobile: React.FC<MainNavProps> = ({routes}) => {
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
   const [isOpen, toggleOpen] = useCycle(false, true);
+  const { theme } = useTheme()
+
 
   const checkActiveRoutes = routes.map((route) => ({
     ...route,
@@ -58,7 +60,10 @@ const HeaderMobile: React.FC<MainNavProps> = ({routes}) => {
       ref={containerRef}
     >
       <motion.div
-        className="absolute inset-0 right-0 w-full bg-white"
+        className={cn("absolute inset-0 right-0 w-full")}
+        style={{
+          backgroundColor: theme === 'light' ? 'white' : 'rgb(6, 12, 23)',
+        }}
         variants={sidebar}
       />
       </motion.nav>
@@ -84,11 +89,18 @@ const HeaderMobile: React.FC<MainNavProps> = ({routes}) => {
 
                 <MenuItem>
                 <Link
+                    onClick={() => toggleOpen()}
                     key={route.href}
                     href={route.href}
                     className={cn(
-                      'text-sm font-medium transition-colors hover:text-black',
-                      route.active ? 'text-black' : 'text-neutral-500'
+                      'text-sm font-medium transition-colors',
+                      route.active && theme === 'light' ?
+                       'text-black' : 
+                       route.active && theme === 'dark' ?
+                       'text-white' :
+                       !route.active && theme === 'light' ?
+                       'text-neutral-500' :
+                       'text-neutral-300'
                     )}
                   >
                     {route.label}
@@ -115,7 +127,7 @@ const MenuToggle = ({ toggle, isOpen }: { toggle: any, isOpen: boolean }) => (
     onClick={toggle}
     className={cn(
       "pointer-events-auto absolute top-[23px] z-30",
-      isOpen ? 'right-14' : 'right-28'
+      isOpen ? 'right-14' : 'right-40'
     )}
 
   >
@@ -144,15 +156,17 @@ const MenuToggle = ({ toggle, isOpen }: { toggle: any, isOpen: boolean }) => (
   </button>
 );
 
-const Path = (props: any) => (
+const Path = (props: any) => {
+  const { theme } = useTheme()
+  return(
   <motion.path
     fill="transparent"
     strokeWidth="2"
-    stroke="hsl(0, 0%, 18%)"
+    stroke={theme === 'light'? "hsl(0, 0%, 18%)" : 'hsl(210, 40%, 96.1%)'}
     strokeLinecap="round"
     {...props}
   />
-);
+)};
 
 const MenuItem = ({
   className,

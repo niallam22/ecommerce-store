@@ -8,7 +8,6 @@ import useCart from "@/hooks/use-cart";
 import { Item, Stock } from "@/types";
 import { cn } from "@/lib/utils";
 
-
 interface CartItemProps {
   data: Item;
   stock?: Stock;
@@ -51,19 +50,19 @@ const CartItem: React.FC<CartItemProps> = ({
       </div>
       <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6">
         <div className="absolute z-10 right-0 top-0">
-          <IconButton onClick={onRemove} icon={<X size={15} />} />
+          <IconButton onClick={onRemove} className='text-black' icon={<X size={15} />} />
         </div>
 
         <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
           <div>
           <div className="flex justify-between">
-            <p className=" text-lg font-semibold text-black">
+            <p className=" text-lg font-semibold">
               {data.name}
             </p>
           </div>
           <div className="mt-2 flex text-sm">
-            <p className="text-gray-500">{data.color.name}</p>
-            <p className="ml-2 border-l border-gray-200 pl-2 text-gray-500">{data.size.name}</p>
+            <p className="">{data.color.name}</p>
+            <p className="ml-2 border-l border-gray-200 pl-2">{data.size.name}</p>
           </div>
           <div className="py-2">
             <Currency value={data.price} />
@@ -72,8 +71,8 @@ const CartItem: React.FC<CartItemProps> = ({
           </div>
             <div className="w-fit">
               <div className="flex items-start space-x-2 w-fit mx-auto">
-                <IconButton onClick={onIncrease} icon={<Plus size={15} />} />
-                <IconButton onClick={onReduce} icon={<Minus size={15} />} />
+                <IconButton onClick={onIncrease} className='text-black'icon={<Plus size={15} />} />
+                <IconButton onClick={onReduce} className='text-black' icon={<Minus size={15} />} />
               </div>
               <div 
               // className="border border-gray-200 rounded-lg my-2 p-1 text-center"

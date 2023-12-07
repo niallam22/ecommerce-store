@@ -21,7 +21,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
         rounded-full 
         bg-black
         border
-        border-transparent
         px-5 
         py-3 
         disabled:cursor-not-allowed 

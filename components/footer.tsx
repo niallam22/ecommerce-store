@@ -3,7 +3,7 @@ import { Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t">
+    <footer className="border-t">
       <div className="mx-auto py-8">
         <div className="m-auto w-fit">
           <div className="flex justify-between items-center pb-2">
@@ -13,11 +13,10 @@ const Footer = () => {
             <Link className="text-sm hover:decoration-solid" href="/returns">Returns</Link>
           </div>
 
-        <p className="text-center text-xs text-black">
+        <p className="text-center text-xs">
           &copy; 2023 Lazy Bones Ltd. All rights reserved.
         </p>
         </div>
-
       </div>
     </footer>
   )
