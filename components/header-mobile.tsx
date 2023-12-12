@@ -45,7 +45,7 @@ const HeaderMobile: React.FC<MainNavProps> = ({routes}) => {
 
   const checkActiveRoutes = routes.map((route) => ({
     ...route,
-    active: pathname === `/category/${route.href}`,
+    active: pathname === route.href,
   }));
 
   return (
@@ -60,10 +60,7 @@ const HeaderMobile: React.FC<MainNavProps> = ({routes}) => {
       ref={containerRef}
     >
       <motion.div
-        className={cn("absolute inset-0 right-0 w-full")}
-        style={{
-          backgroundColor: theme === 'light' ? 'white' : 'rgb(6, 12, 23)',
-        }}
+        className="absolute inset-0 right-0 w-full bg-background"
         variants={sidebar}
       />
       </motion.nav>
@@ -93,14 +90,8 @@ const HeaderMobile: React.FC<MainNavProps> = ({routes}) => {
                     key={route.href}
                     href={route.href}
                     className={cn(
-                      'text-sm font-medium transition-colors',
-                      route.active && theme === 'light' ?
-                       'text-black' : 
-                       route.active && theme === 'dark' ?
-                       'text-white' :
-                       !route.active && theme === 'light' ?
-                       'text-neutral-500' :
-                       'text-neutral-300'
+                      'text-sm font-medium text-accent hover:text-accent-foreground transition-colors duration-300',
+                      route.active ? 'text-accent-foreground':''
                     )}
                   >
                     {route.label}
@@ -108,7 +99,7 @@ const HeaderMobile: React.FC<MainNavProps> = ({routes}) => {
                 </MenuItem>
 
               {!isLastItem && (
-                <MenuItem className="my-3 h-px w-full bg-gray-300" />
+                <MenuItem className="my-3 h-px w-full border" />
               )}
             </div>
           );

@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes"
 
 import { cn } from "@/lib/utils"
 
@@ -19,11 +18,10 @@ const MainNav: React.FC<MainNavProps> = ({
   routes
 }) => {
   const pathname = usePathname();
-  const { theme } = useTheme()
 
   const checkActiveRoutes = routes.map((route) => ({
     ...route,
-    active: pathname === `/category/${route.href}`,
+    active: pathname === route.href,
   }));
 
   return (
@@ -34,8 +32,7 @@ const MainNav: React.FC<MainNavProps> = ({
         <Link
           key={route.href}
           href={route.href}
-          className='text-sm font-medium transition-colors hover:text-black'
-          style={{color:theme === 'light' ? 'rgb(6, 12, 23)' : 'white' }}
+          className={cn('text-sm font-medium text-accent hover:text-accent-foreground transition-colors duration-300', route.active ? 'text-accent-foreground':'')}
         >
           {route.label}
         </Link>
