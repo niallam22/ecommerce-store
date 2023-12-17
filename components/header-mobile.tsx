@@ -1,10 +1,12 @@
 'use client';
 
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef, useState} from 'react';
 import { motion, useCycle } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from "next-themes"
+import { X, Menu } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 
 interface Route {
@@ -90,8 +92,8 @@ const HeaderMobile: React.FC<MainNavProps> = ({routes}) => {
                     key={route.href}
                     href={route.href}
                     className={cn(
-                      'text-sm font-medium text-accent hover:text-accent-foreground transition-colors duration-300',
-                      route.active ? 'text-accent-foreground':''
+                      'text-sm font-medium text-secondary hover:text-secondary-foreground transition-colors duration-300',
+                      route.active ? 'text-secondary-foreground':''
                     )}
                   >
                     {route.label}
@@ -117,47 +119,16 @@ const MenuToggle = ({ toggle, isOpen }: { toggle: any, isOpen: boolean }) => (
   <button
     onClick={toggle}
     className={cn(
-      "pointer-events-auto absolute top-[23px] z-30",
+      "pointer-events-auto absolute top-[22px] z-30",
       isOpen ? 'right-14' : 'right-40'
     )}
 
   >
-    <svg width="23" height="23" viewBox="0 0 23 23">
-      <Path
-        variants={{
-          closed: { d: 'M 2 2.5 L 20 2.5' },
-          open: { d: 'M 3 16.5 L 17 2.5' },
-        }}
-      />
-      <Path
-        d="M 2 9.423 L 20 9.423"
-        variants={{
-          closed: { opacity: 1 },
-          open: { opacity: 0 },
-        }}
-        transition={{ duration: 0.1 }}
-      />
-      <Path
-        variants={{
-          closed: { d: 'M 2 16.346 L 20 16.346' },
-          open: { d: 'M 3 2.5 L 17 16.346' },
-        }}
-      />
-    </svg>
+    {!isOpen && <Menu className='text-foreground'/> || <X className='text-foreground'/>}
   </button>
 );
 
-const Path = (props: any) => {
-  const { theme } = useTheme()
-  return(
-  <motion.path
-    fill="transparent"
-    strokeWidth="2"
-    stroke={theme === 'light'? "hsl(0, 0%, 18%)" : 'hsl(210, 40%, 96.1%)'}
-    strokeLinecap="round"
-    {...props}
-  />
-)};
+
 
 const MenuItem = ({
   className,

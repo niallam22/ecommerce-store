@@ -23,10 +23,10 @@ const Gallery: React.FC<GalleryProps> = ({
           ))}
         </Tab.List>
       </div>
-      <Tab.Panels className="aspect-square w-full">
+      <Tab.Panels className="lg:aspect-square lg:w-full">
         {images.map((image) => (
           <Tab.Panel key={image.id}>
-            <div className="aspect-square relative h-full w-full sm:rounded-lg overflow-hidden">
+            <div className="mx-auto aspect-square max-w-[95%] sm:max-w-[85%] md:max-w-[65%] lg:max-w-full relative h-full w-full sm:rounded-lg overflow-hidden">
               <NextImage
                 fill
                 src={image.url}
