@@ -6,7 +6,9 @@ import axios from "axios";
 export async function getStock(productIds: string[]): Promise<Stock[]> {
   try {
     if (!productIds || productIds.length === 0) {
-      throw new Error('ProductIds are required for getStock action.');
+      // throw new Error('ProductIds are required for getStock action.');
+      const noStock: Stock[] = [{productId: '', stock: 0}]
+      return noStock
     }
     const URL = `${process.env.NEXT_PUBLIC_API_URL}/batches/stock?productIds=`;
     const res = await fetch(`${URL}${productIds.join(',')}`);
