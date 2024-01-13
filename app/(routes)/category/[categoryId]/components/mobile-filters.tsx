@@ -35,6 +35,7 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({
         Filters
         <Plus size={20} />
       </Button>
+      <div className="absolute">
       <Dialog open={open} as="div" className="relative z-40 lg:hidden" onClose={onClose}>
         
         {/* Background color and opacity */}
@@ -68,6 +69,8 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({
           </Dialog.Panel>
         </div>
       </Dialog>
+      </div>
+
     </>
   );
 };

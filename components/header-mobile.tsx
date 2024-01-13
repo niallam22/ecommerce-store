@@ -52,70 +52,73 @@ const HeaderMobile: React.FC<MainNavProps> = ({routes}) => {
 
   return (
     <>
+        <motion.nav
+        initial={false}
+        animate={isOpen ? 'open' : 'closed'}
+        custom={height}
+        className={`fixed inset-0 z-50 w-full md:hidden ${
+          isOpen ? '' : 'pointer-events-none'
+        }`}
+        ref={containerRef}
+        >
+        <motion.div
+          className="absolute inset-0 right-0 w-full bg-background"
+          variants={sidebar}
+        />
+        </motion.nav>
+      
       <motion.nav
-      initial={false}
-      animate={isOpen ? 'open' : 'closed'}
-      custom={height}
-      className={`fixed inset-0 z-50 w-full md:hidden ${
-        isOpen ? '' : 'pointer-events-none'
-      }`}
-      ref={containerRef}
-    >
-      <motion.div
-        className="absolute inset-0 right-0 w-full bg-background"
-        variants={sidebar}
-      />
-      </motion.nav>
-    
-    <motion.nav
-      initial={false}
-      animate={isOpen ? 'open' : 'closed'}
-      custom={height}
-      className={`absolute inset-0 z-50 w-full md:hidden ${
-        isOpen ? '' : 'pointer-events-none'
-      }`}
-      ref={containerRef}
-    >
-      <motion.ul
-        variants={variants}
-        className="absolute grid w-full gap-3 px-10 py-16"
+        initial={false}
+        animate={isOpen ? 'open' : 'closed'}
+        custom={height}
+        className={`absolute inset-0 z-50 w-full md:hidden ${
+          isOpen ? '' : 'pointer-events-none'
+        }`}
+        ref={containerRef}
       >
-        {checkActiveRoutes.map((route, idx) => {
-          const isLastItem = idx === checkActiveRoutes.length - 1; // Check if it's the last item
+        <motion.ul
+          variants={variants}
+          className="absolute grid w-full gap-3 px-10 py-16"
+        >
+          {checkActiveRoutes.map((route, idx) => {
+            const isLastItem = idx === checkActiveRoutes.length - 1; // Check if it's the last item
 
-          return (
-            <div key={idx}>
+            return (
+              <div key={idx}>
 
-                <MenuItem>
-                <Link
-                    onClick={() => toggleOpen()}
-                    key={route.href}
-                    href={route.href}
-                    className={cn(
-                      'text-sm font-medium text-secondary hover:text-secondary-foreground transition-colors duration-300',
-                      route.active ? 'text-secondary-foreground':''
-                    )}
-                  >
-                    {route.label}
-                  </Link>
-                </MenuItem>
+                  <MenuItem>
+                  <Link
+                      onClick={() => toggleOpen()}
+                      key={route.href}
+                      href={route.href}
+                      className={cn(
+                        'text-sm font-medium text-secondary hover:text-secondary-foreground transition-colors duration-300',
+                        route.active ? 'text-secondary-foreground':''
+                      )}
+                    >
+                      {route.label}
+                    </Link>
+                  </MenuItem>
 
-              {!isLastItem && (
-                <MenuItem className="my-3 h-px w-full border" />
-              )}
-            </div>
-          );
-        })}
-      </motion.ul>
-      <MenuToggle toggle={toggleOpen} isOpen={isOpen} />
-    </motion.nav>
+                {!isLastItem && (
+                  <MenuItem className="my-3 h-px w-full border" />
+                )}
+              </div>
+            );
+          })}
+        </motion.ul>
+        <MenuToggleClose toggle={toggleOpen} isOpen={isOpen} />
+      </motion.nav>
+      <div className='md:hidden'>
+        <MenuToggleOpen toggle={toggleOpen} isOpen={isOpen} />
+      </div>
     </>
   );
 };
 
 export default HeaderMobile;
 
-const MenuToggle = ({ toggle, isOpen }: { toggle: any, isOpen: boolean }) => (
+const MenuToggleOpen = ({ toggle, isOpen }: { toggle: any, isOpen: boolean }) => (
   <button
     onClick={toggle}
     className={cn(
@@ -125,6 +128,19 @@ const MenuToggle = ({ toggle, isOpen }: { toggle: any, isOpen: boolean }) => (
 
   >
     {!isOpen && <Menu className='text-foreground'/> || <X className='text-foreground'/>}
+  </button>
+);
+
+const MenuToggleClose = ({ toggle, isOpen }: { toggle: any, isOpen: boolean }) => (
+  <button
+    onClick={toggle}
+    className={cn(
+      "pointer-events-auto absolute top-[22px] z-30",
+      isOpen ? 'right-14' : 'right-40'
+    )}
+
+  >
+    {!!isOpen && <X className='text-foreground'/>}
   </button>
 );
 
