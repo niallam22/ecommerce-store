@@ -4,6 +4,7 @@ import { getStock } from "@/actions/_actions";
 import ProductList from "@/components/product-list";
 import Billboard from "@/components/ui/billboard";
 import Container from "@/components/ui/container";
+import Image from 'next/image';
 
 export const revalidate = 0;
 
@@ -23,7 +24,14 @@ const AboutPage = async () => {
           </p>
 
           <div className="flex flex-col justify-center gap-y-4 md:grid md:grid-cols-2 pt-2">
-            <img className="" src="https://asset.cloudinary.com/dv8wjbfur/95d747251f862d77a3390a745d12b2a4" alt="founder" />
+            {/* <img className="" src="https://asset.cloudinary.com/dv8wjbfur/95d747251f862d77a3390a745d12b2a4" alt="founder" /> */}
+            <Image
+              className="md:order-last"
+              src="https://asset.cloudinary.com/dv8wjbfur/3317f0e2bd47ab3f4a5f130ad935c7e2"
+              alt="founder"
+              // width={width} 
+              // height={height} 
+            />
             <div className="p-4 h-fit my-auto">
             <h4 className="text-neutral-500 text-sm">&ldquo;The Golden Retriever&rdquo;</h4>
               <h3 className="text-3xl font-bold">Nathan</h3>
@@ -31,7 +39,14 @@ const AboutPage = async () => {
                 The creative force behind Lazy Bones, Nath has always believed in the transformative power of play for dogs. With a background in design and a heart for canine companions, he strives to curate a delightful collection of toys that not only entertain but also foster the special bond between pets and their families.
               </p>
             </div>
-            <img className="md:order-last" src="https://asset.cloudinary.com/dv8wjbfur/3317f0e2bd47ab3f4a5f130ad935c7e2" alt="founder" />
+            <Image
+              className="md:order-last"
+              src="https://asset.cloudinary.com/dv8wjbfur/3317f0e2bd47ab3f4a5f130ad935c7e2"
+              alt="founder"
+              // width={width} 
+              // height={height} 
+            />
+            {/* <img className="md:order-last" src="https://asset.cloudinary.com/dv8wjbfur/3317f0e2bd47ab3f4a5f130ad935c7e2" alt="founder" /> */}
             <div className="p-4 h-fit my-auto">
               <h4 className="text-neutral-500 text-sm">&ldquo;The Collie&ldquo;</h4>
               <h3 className="text-3xl font-bold">Mark</h3>
