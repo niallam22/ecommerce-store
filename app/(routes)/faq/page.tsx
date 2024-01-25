@@ -48,9 +48,9 @@ const AboutPage = async () => {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-4">
-                  <AccordionTrigger>What if my dog isn't a fan of the Lazy Bones toy I purchased?</AccordionTrigger>
+                  <AccordionTrigger>What if my dog isn&apos;t a fan of the Lazy Bones toy I purchased?</AccordionTrigger>
                   <AccordionContent>
-                  We understand that every dog has unique preferences. If your pup isn't thrilled with the toy you chose, fear not! We offer a hassle-free return policy. Contact our customer service team, and we'll guide you through the return process. Check out our returns policy at the bottom of the page.
+                  We understand that every dog has unique preferences. If your pup isn&apos;t thrilled with the toy you chose, fear not! We offer a hassle-free return policy. Contact our customer service team, and we&apos;ll guide you through the return process. Check out our returns policy at the bottom of the page.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
